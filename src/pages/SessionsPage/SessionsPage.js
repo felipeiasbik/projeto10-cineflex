@@ -86,6 +86,7 @@ const ButtonsContainer = styled.div`
     margin: 20px 0;
     button {
         margin-right: 20px;
+        cursor: pointer;
     }
     a {
         text-decoration: none;
