@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 export default function SessionsPage() {
 
@@ -13,7 +14,6 @@ export default function SessionsPage() {
 
         const promise = axios.get(url);
         promise.then( res => {
-            console.log(res.data);
             setFilme(res.data);
         });
         promise.catch( err => {
@@ -36,7 +36,7 @@ export default function SessionsPage() {
                             {hor.weekday} - {hor.date}
                             <ButtonsContainer>
                                 {hor.showtimes.map( horario => {
-                                    return <button key={horario.id}>{horario.name}</button>
+                                    return <Link to={`/assentos/${horario.id}`} key={horario.id}><button>{horario.name}</button></Link>
                                 })}
                             </ButtonsContainer>
                         </SessionContainer>
