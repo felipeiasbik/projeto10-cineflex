@@ -7,6 +7,7 @@ export default function SeatsPage() {
 
     const [filme,setFilme] = useState(undefined);
     const {idSessao} = useParams();
+    const [cor,setCor] = useState(true);
 
     useEffect(() => {
         const url = `https://mock-api.driven.com.br/api/v8/cineflex/showtimes/${idSessao}/seats`;
@@ -18,6 +19,7 @@ export default function SeatsPage() {
         })
         promise.catch ( err => {
             console.log(err.response.data);
+
     })
 
 
@@ -33,21 +35,21 @@ export default function SeatsPage() {
 
             <SeatsContainer>
                 {filme.seats.map( ass => {
-                    return <SeatItem key={ass.id}>{ass.name}</SeatItem>
+                    return <SeatItem key={ass.id} cor={ass.isAvailable}>{ass.name}</SeatItem>
                 })}
             </SeatsContainer>
 
             <CaptionContainer>
                 <CaptionItem>
-                    <CaptionCircle />
+                    <CaptionCircle cor={null}/>
                     Selecionado
                 </CaptionItem>
                 <CaptionItem>
-                    <CaptionCircle />
+                    <CaptionCircle cor={true}/>
                     Disponível
                 </CaptionItem>
                 <CaptionItem>
-                    <CaptionCircle />
+                    <CaptionCircle cor={false}/>
                     Indisponível
                 </CaptionItem>
             </CaptionContainer>
@@ -119,8 +121,8 @@ const CaptionContainer = styled.div`
     margin: 20px;
 `
 const CaptionCircle = styled.div`
-    border: 1px solid blue;         // Essa cor deve mudar
-    background-color: lightblue;    // Essa cor deve mudar
+    border: 1px solid ${props => props.cor === null ? "#0E7D71" : props.cor === false ? "#F7C52B" : "#808F9D"};
+    background-color: ${props => props.cor === null ? "#1AAE9E" : props.cor === false ? "#FBE192" : "#C3CFD9"};
     height: 25px;
     width: 25px;
     border-radius: 25px;
@@ -136,8 +138,8 @@ const CaptionItem = styled.div`
     font-size: 12px;
 `
 const SeatItem = styled.div`
-    border: 1px solid blue;         // Essa cor deve mudar
-    background-color: lightblue;    // Essa cor deve mudar
+    border: 1px solid ${props => props.cor === false ? "#F7C52B" : "#808F9D"};
+    background-color: ${props => props.cor === false ? "#FBE192" : "#C3CFD9"};
     height: 25px;
     width: 25px;
     border-radius: 25px;
