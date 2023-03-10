@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import Sessao from "./Sessao";
 
 export default function SessionsPage() {
 
@@ -23,25 +23,14 @@ export default function SessionsPage() {
     }, []);
 
     if (filme === undefined){
-        return <div>CARREGANDO...</div>;
+        return <Carregando>CARREGANDO...</Carregando>;
     }
 
     return (
         <PageContainer>
             Selecione o horário
             <div>
-                {filme.days.map( hor => {
-                    return (
-                        <SessionContainer key={hor.id}>
-                            {hor.weekday} - {hor.date}
-                            <ButtonsContainer>
-                                {hor.showtimes.map( horario => {
-                                    return <Link to={`/assentos/${horario.id}`} key={horario.id}><button>{horario.name}</button></Link>
-                                })}
-                            </ButtonsContainer>
-                        </SessionContainer>
-                    )
-                })}
+                <Sessao filme={filme}/>
             </div>
 
             <FooterContainer>
@@ -71,27 +60,7 @@ const PageContainer = styled.div`
         margin-top: 20px;
     }
 `
-const SessionContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    font-family: 'Roboto';
-    font-size: 20px;
-    color: #293845;
-    padding: 0 20px;
-`
-const ButtonsContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    margin: 20px 0;
-    button {
-        margin-right: 20px;
-        cursor: pointer;
-    }
-    a {
-        text-decoration: none;
-    }
-`
+
 const FooterContainer = styled.div`
     width: 100%;
     height: 120px;
@@ -129,4 +98,15 @@ const FooterContainer = styled.div`
             }
         }
     }
+`
+const Carregando = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 300px;
+    font-family: 'Roboto';
+    font-size: 24px;
+    text-align: center;
+    color: #293845;
 `

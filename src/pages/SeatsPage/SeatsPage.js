@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 import styled from "styled-components"
 import axios from "axios";
+import Assento from "./Assento";
 
 export default function SeatsPage() {
 
@@ -26,7 +27,7 @@ export default function SeatsPage() {
     }, [])
 
     if (filme === undefined){
-        return <div>CARREGANDO...</div>;
+        return <Carregando>CARREGANDO...</Carregando>;
     }
 
     return (
@@ -34,9 +35,7 @@ export default function SeatsPage() {
             Selecione o(s) assento(s)
 
             <SeatsContainer>
-                {filme.seats.map( ass => {
-                    return <SeatItem key={ass.id} cor={ass.isAvailable}>{ass.name}</SeatItem>
-                })}
+                <Assento filme={filme}/>
             </SeatsContainer>
 
             <CaptionContainer>
@@ -137,19 +136,6 @@ const CaptionItem = styled.div`
     align-items: center;
     font-size: 12px;
 `
-const SeatItem = styled.div`
-    border: 1px solid ${props => props.cor === false ? "#F7C52B" : "#808F9D"};
-    background-color: ${props => props.cor === false ? "#FBE192" : "#C3CFD9"};
-    height: 25px;
-    width: 25px;
-    border-radius: 25px;
-    font-family: 'Roboto';
-    font-size: 11px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 5px 3px;
-`
 const FooterContainer = styled.div`
     width: 100%;
     height: 120px;
@@ -187,4 +173,15 @@ const FooterContainer = styled.div`
             }
         }
     }
+`
+const Carregando = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 300px;
+    font-family: 'Roboto';
+    font-size: 24px;
+    text-align: center;
+    color: #293845;
 `
