@@ -5,7 +5,7 @@ import axios from "axios";
 import Assento from "./Assento";
 import CORES from "./Cores";
 
-export default function SeatsPage( {selecionado, setSelecionado} ) {
+export default function SeatsPage( {selecionado, setSelecionado, compra, setCompra} ) {
 
     const [listaAssentos,setListaAssentos] = useState(undefined);
     const {idSessao} = useParams();
@@ -13,11 +13,13 @@ export default function SeatsPage( {selecionado, setSelecionado} ) {
     const [cpfInput,setCpfInput] = useState("");
     const navigate = useNavigate();
 
-    useEffect(() => {
+    useEffect(() => {   
         const url = `https://mock-api.driven.com.br/api/v8/cineflex/showtimes/${idSessao}/seats`;
 
         const promise = axios.get(url);
         promise.then( res => {
+            const finalizacao = {nomeFilme: res.data.movie.title, diaFilme: res.data.day.date, horaFilme: res.data.name};
+            setCompra(finalizacao);
             const listagemAssentos = res.data;
             setListaAssentos(listagemAssentos);
         })
@@ -36,12 +38,15 @@ export default function SeatsPage( {selecionado, setSelecionado} ) {
         if (selecionado.ids.length !== 0){
             const body = {ids: [...selecionado.ids], name: {nomeInput}, cpf: {cpfInput}};
             setSelecionado(body);
-            console.log(body);    
             
             const URL = "https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many";
             const promise = axios.post(URL, body);
 
-            promise.then(res => {navigate("/sucesso")});
+            promise.then(res => {
+                navigate("/sucesso")
+                console.log(res);
+            
+            });
             promise.catch(err => {alert(`Erro: ${err.response.data}`)});
         }
     }

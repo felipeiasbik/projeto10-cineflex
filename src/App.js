@@ -10,16 +10,17 @@ import { useState } from "react";
 export default function App() {
 
     const [selecionado,setSelecionado] = useState({ids: [], name: "", cpf: ""});
+    const [compra,setCompra] = useState({nomeFilme: "", diaFilme: "", horaFilme: ""});
 
     return (
         <BrowserRouter>
            <Link to={"/"}><NavContainer>CINEFLEX</NavContainer></Link>
 
             <Routes>
-                <Route path="/" element={<HomePage />}/>
-                <Route path="/assentos/:idSessao" element={<SeatsPage selecionado={selecionado} setSelecionado={setSelecionado} />}/>
+                <Route path="/" element={<HomePage selecionado={selecionado} setSelecionado={setSelecionado} />}/>
+                <Route path="/assentos/:idSessao" element={<SeatsPage selecionado={selecionado} setSelecionado={setSelecionado} compra={compra} setCompra={setCompra}/>}/>
                 <Route path="/sessoes/:idFilme" element={<SessionsPage />}/>
-                <Route path="/sucesso" element={<SuccessPage selecionado={selecionado}/>}/>
+                <Route path="/sucesso" element={<SuccessPage selecionado={selecionado} compra={compra}/>}/>
             </Routes>
         </BrowserRouter>
     )

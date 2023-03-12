@@ -1,7 +1,12 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
-export default function SuccessPage( {selecionado} ) {
+export default function SuccessPage( {selecionado, compra} ) {
+
+    useEffect(() => {
+        console.log(selecionado);
+    },[]);
 
     return (
         <PageContainer>
@@ -9,8 +14,8 @@ export default function SuccessPage( {selecionado} ) {
 
             <TextContainer>
                 <strong><p>Filme e sessão</p></strong>
-                <p>Tudo em todo lugar ao mesmo tempo</p>
-                <p>03/03/2023 - 14:00</p>
+                <p>{compra.nomeFilme}</p>
+                <p>{compra.diaFilme} - {compra.horaFilme}</p>
             </TextContainer>
 
             <TextContainer>

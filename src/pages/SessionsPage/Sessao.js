@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Horario from "./Horario";
 
 export default function Sessao({filme}){
+    
     return (
         filme.days.map( hor => {
             return (

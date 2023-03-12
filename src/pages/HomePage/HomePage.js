@@ -1,7 +1,14 @@
 import styled from "styled-components";
 import Cartaz from "./Cartaz";
+import { useEffect } from "react";
 
-export default function HomePage() {
+export default function HomePage( {selecionado, setSelecionado} ) {
+
+    useEffect(() => {
+        const zerarIds = {ids: [], name: "", cpf: ""};
+        setSelecionado(zerarIds);
+        console.log(selecionado);
+    },[]);
 
     return (
         <PageContainer>
