@@ -20,8 +20,8 @@ export default function SuccessPage( {selecionado, compra, assentosSelecionados}
 
             <TextContainer data-test="client-info">
                 <strong><p>Comprador</p></strong>
-                <p>Nome: {selecionado.name.nomeInput}</p>
-                <p>CPF: {selecionado.cpf.cpfInput}</p>
+                <p>Nome: {selecionado.name}</p>
+                <p>CPF: {selecionado.cpf}</p>
             </TextContainer>
 
             <Link to={"/"} data-test="go-home-btn">
