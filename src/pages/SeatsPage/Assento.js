@@ -2,9 +2,8 @@ import styled from "styled-components";
 import CORES from "./Cores";
 import { useEffect, useState } from "react";
 
-export default function Assento({listaAssentos,setListaAssentos}){
+export default function Assento({listaAssentos,setListaAssentos, selecionado, setSelecionado}){
 
-    const [selecionado,setSelecionado] = useState({ids: [], name: "Fulano", cpf: "12345678900"});
 
     return (
         listaAssentos.seats.map( assento => {
@@ -13,7 +12,6 @@ export default function Assento({listaAssentos,setListaAssentos}){
                 if (assento.isAvailable && !selecionado.ids.includes(assento.id)){
                     const selecao = {ids: [...selecionado.ids,assento.id], name: "Fulano", cpf: "12345678900"};
                     setSelecionado(selecao);
-                    console.log(selecao);
                     assento.isAvailable = null;            
                 }
             }

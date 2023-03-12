@@ -5,10 +5,12 @@ import axios from "axios";
 import Assento from "./Assento";
 import CORES from "./Cores";
 
-export default function SeatsPage() {
+export default function SeatsPage( {selecionado, setSelecionado} ) {
 
     const [listaAssentos,setListaAssentos] = useState(undefined);
     const {idSessao} = useParams();
+    const [nomeInput,setNomeInput] = useState("");
+    const [cpfInput,setCpfInput] = useState(0);
 
     useEffect(() => {
         const url = `https://mock-api.driven.com.br/api/v8/cineflex/showtimes/${idSessao}/seats`;
@@ -17,7 +19,6 @@ export default function SeatsPage() {
         promise.then( res => {
             const listagemAssentos = res.data;
             setListaAssentos(listagemAssentos);
-            console.log(listagemAssentos);
         })
         promise.catch ( err => {
             console.log(err.response.data);
@@ -29,12 +30,22 @@ export default function SeatsPage() {
         return <Carregando>CARREGANDO...</Carregando>;
     }
 
+    function enviarCompra(event){
+        event.preventDefault();
+        if (selecionado.ids.length !== 0){
+            event.preventDefault();
+            const selecao = {ids: [...selecionado.ids], name: {nomeInput}, cpf: {cpfInput}};
+            setSelecionado(selecao);
+            console.log(selecao);
+        }
+    }
+
     return (
         <PageContainer>
             Selecione o(s) assento(s)
 
             <SeatsContainer>
-                <Assento listaAssentos={listaAssentos}/>
+                <Assento listaAssentos={listaAssentos} selecionado={selecionado} setSelecionado={setSelecionado}/>
             </SeatsContainer>
 
             <CaptionContainer>
@@ -53,13 +64,15 @@ export default function SeatsPage() {
             </CaptionContainer>
 
             <FormContainer>
-                Nome do Comprador:
-                <input placeholder="Digite seu nome..." />
+                <form onSubmit={enviarCompra}>
+                    <label for="campoNome">Nome do Comprador:</label>                
+                    <input placeholder="Digite seu nome..." id="campoNome" type="text" value={nomeInput} onChange={e => setNomeInput(e.target.value)} required/>
 
-                CPF do Comprador:
-                <input placeholder="Digite seu CPF..." />
+                    <label for="campoCPF">CPF do Comprador:</label>                
+                    <input placeholder="Digite seu CPF..." id="campoCPF" type="number" value={cpfInput} onChange={e => setCpfInput(e.target.value)} required/>
 
-                <button>Reservar Assento(s)</button>
+                    <button>Reservar Assento(s)</button>
+                </form>
             </FormContainer>
 
             <FooterContainer>
