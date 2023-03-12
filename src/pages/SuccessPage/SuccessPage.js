@@ -1,6 +1,7 @@
-import styled from "styled-components"
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
-export default function SuccessPage() {
+export default function SuccessPage( {selecionado} ) {
 
     return (
         <PageContainer>
@@ -14,18 +15,18 @@ export default function SuccessPage() {
 
             <TextContainer>
                 <strong><p>Ingressos</p></strong>
-                <p>Assento 01</p>
-                <p>Assento 02</p>
-                <p>Assento 03</p>
+                {selecionado.ids.map( assento => <p key={assento}>Assento {assento}</p>)}
             </TextContainer>
 
             <TextContainer>
                 <strong><p>Comprador</p></strong>
-                <p>Nome: Letícia Chijo</p>
-                <p>CPF: 123.456.789-10</p>
+                <p>Nome: {selecionado.name.nomeInput}</p>
+                <p>CPF: {selecionado.cpf.cpfInput}</p>
             </TextContainer>
 
-            <button>Voltar para Home</button>
+            <Link to={"/"}>
+                <button>Voltar para Home</button>            
+            </Link>
         </PageContainer>
     )
 }
