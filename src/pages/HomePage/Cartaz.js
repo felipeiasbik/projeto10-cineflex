@@ -30,8 +30,8 @@ export default function Cartaz(){
     return (
         filmes.map( filme => {
             return (
-                <MovieContainer data-test="movie">
-                    <Link to={`/sessoes/${filme.id}`} key={filme.id}>
+                <MovieContainer data-test="movie" key={filme.id}>
+                    <Link to={`/sessoes/${filme.id}`}>
                         <img src={filme.posterURL} alt={filme.title}/>
                     </Link>
                 </MovieContainer>

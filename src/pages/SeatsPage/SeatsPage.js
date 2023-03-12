@@ -25,7 +25,7 @@ export default function SeatsPage( {selecionado, setSelecionado, setCompra, asse
         })
         promise.catch ( err => {
             alert(err.response.data);
-    })
+        })
 
     }, [])
 
@@ -36,16 +36,15 @@ export default function SeatsPage( {selecionado, setSelecionado, setCompra, asse
     function enviarCompra(event){
         event.preventDefault();
         if (selecionado.ids.length !== 0){
-            const body = {ids: [...selecionado.ids], name: {nomeInput}, cpf: {cpfInput}};
+            const body = {ids: [...selecionado.ids], name: nomeInput, cpf: cpfInput};
             setSelecionado(body);
+            console.log(body);
             
             const URL = "https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many";
             const promise = axios.post(URL, body);
 
             promise.then(res => {
-                navigate("/sucesso")
-                console.log(res);
-            
+                navigate("/sucesso")          
             });
             promise.catch(err => {alert(`Erro: ${err.response.data}`)});
         }

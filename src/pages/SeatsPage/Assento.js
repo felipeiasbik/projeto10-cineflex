@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import CORES from "./Cores";
-import { useEffect, useState } from "react";
 
 export default function Assento({listaAssentos, selecionado, setSelecionado, assentosSelecionados, setAssentosSelecionados, nomeInput, cpfInput}){
 
@@ -11,7 +10,7 @@ export default function Assento({listaAssentos, selecionado, setSelecionado, ass
             function selecionar(){
                 if (!selecionado.ids.includes(assento.id)){
                     if (assento.isAvailable === true){
-                        const selecao = {ids: [...selecionado.ids,assento.id], name: {nomeInput}, cpf: {cpfInput}};
+                        const selecao = {ids: [...selecionado.ids,assento.id], name: nomeInput, cpf: cpfInput};
                         setSelecionado(selecao);
                         assento.isAvailable = null;
                         const assentosSelec = [...assentosSelecionados,assento.name];
@@ -21,7 +20,7 @@ export default function Assento({listaAssentos, selecionado, setSelecionado, ass
                     }         
                 } else if (selecionado.ids.includes(assento.id)) {
                     if (assento.isAvailable === null){
-                        const selecao = {ids: [...selecionado.ids,assento.id], name: {nomeInput}, cpf: {cpfInput}};
+                        const selecao = {ids: [...selecionado.ids,assento.id], name: nomeInput, cpf: cpfInput};
                         const filterSelecao = selecao.ids.filter( valor => valor !==assento.id );
                         const novaSelecao = {ids: filterSelecao, name: {nomeInput}, cpf: {cpfInput}};
                         setSelecionado(novaSelecao);

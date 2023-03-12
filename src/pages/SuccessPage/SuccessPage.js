@@ -1,12 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
 
 export default function SuccessPage( {selecionado, compra, assentosSelecionados} ) {
-
-    useEffect(() => {
-        console.log(selecionado);
-    },[]);
 
     return (
         <PageContainer>
