@@ -77,16 +77,16 @@ export default function SeatsPage( {selecionado, setSelecionado, setCompra, asse
             <FormContainer>
                 <form onSubmit={enviarCompra}>
                     <label htmlFor="campoNome">Nome do Comprador:</label>                
-                    <input placeholder="Digite seu nome..." id="campoNome" type="text" value={nomeInput} onChange={e => setNomeInput(e.target.value)} required/>
+                    <input data-test="client-name" placeholder="Digite seu nome..." id="campoNome" type="text" value={nomeInput} onChange={e => setNomeInput(e.target.value)} required/>
 
                     <label htmlFor="campoCPF">CPF do Comprador:</label>                
-                    <input placeholder="Digite seu CPF..." id="campoCPF" type="number" value={cpfInput} onChange={e => setCpfInput(e.target.value)} required/>
+                    <input data-test="client-cpf" placeholder="Digite seu CPF..." id="campoCPF" type="number" value={cpfInput} onChange={e => setCpfInput(e.target.value)} required/>
 
-                    <button >Reservar Assento(s)</button>
+                    <button data-test="book-seat-btn">Reservar Assento(s)</button>
                 </form>
             </FormContainer>
 
-            <FooterContainer>
+            <FooterContainer data-test="footer">
                 <div>
                     <img src={listaAssentos.movie.posterURL} alt="poster" />
                 </div>

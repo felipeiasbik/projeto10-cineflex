@@ -12,24 +12,24 @@ export default function SuccessPage( {selecionado, compra, assentosSelecionados}
         <PageContainer>
             <h1>Pedido feito <br /> com sucesso!</h1>
 
-            <TextContainer>
+            <TextContainer data-test="movie-info">
                 <strong><p>Filme e sessão</p></strong>
                 <p>{compra.nomeFilme}</p>
                 <p>{compra.diaFilme} - {compra.horaFilme}</p>
             </TextContainer>
 
-            <TextContainer>
+            <TextContainer data-test="seats-info">
                 <strong><p>Ingressos</p></strong>
                 {selecionado.ids.map( (assento,indice) => <p key={assento}>Assento {assentosSelecionados[indice]}</p>)}
             </TextContainer>
 
-            <TextContainer>
+            <TextContainer data-test="client-info">
                 <strong><p>Comprador</p></strong>
                 <p>Nome: {selecionado.name.nomeInput}</p>
                 <p>CPF: {selecionado.cpf.cpfInput}</p>
             </TextContainer>
 
-            <Link to={"/"}>
+            <Link to={"/"} data-test="go-home-btn">
                 <button>Voltar para Home</button>            
             </Link>
         </PageContainer>

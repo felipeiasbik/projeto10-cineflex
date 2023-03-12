@@ -6,9 +6,9 @@ export default function Sessao({filme}){
     return (
         filme.days.map( hor => {
             return (
-                <SessionContainer key={hor.id}>
+                <SessionContainer data-test="movie-day" key={hor.id}>
                     {hor.weekday} - {hor.date}
-                    <ButtonsContainer>
+                    <ButtonsContainer data-test="showtime">
                         <Horario hor={hor}/>
                     </ButtonsContainer>
                 </SessionContainer>

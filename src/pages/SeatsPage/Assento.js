@@ -32,7 +32,7 @@ export default function Assento({listaAssentos, selecionado, setSelecionado, ass
                 }
             }
 
-            return <SeatItem onClick={() => selecionar()} key={assento.id} CORES={CORES} isAvailable={assento.isAvailable}>{assento.name}</SeatItem>
+            return <SeatItem data-test="seat" onClick={() => selecionar()} key={assento.id} CORES={CORES} isAvailable={assento.isAvailable}>{assento.name}</SeatItem>
         })
     )
 }

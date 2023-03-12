@@ -33,7 +33,7 @@ export default function SessionsPage() {
                 <Sessao filme={filme}/>
             </div>
 
-            <FooterContainer>
+            <FooterContainer data-test="footer">
                 <div>
                     <img src={filme.posterURL} alt={filme.title} />
                 </div>
