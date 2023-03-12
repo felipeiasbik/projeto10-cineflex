@@ -2,7 +2,7 @@ import styled from "styled-components";
 import CORES from "./Cores";
 import { useEffect, useState } from "react";
 
-export default function Assento({listaAssentos, selecionado, setSelecionado, nomeInput, cpfInput}){
+export default function Assento({listaAssentos, selecionado, setSelecionado, assentosSelecionados, setAssentosSelecionados, nomeInput, cpfInput}){
 
 
     return (
@@ -13,8 +13,9 @@ export default function Assento({listaAssentos, selecionado, setSelecionado, nom
                     if (assento.isAvailable === true){
                         const selecao = {ids: [...selecionado.ids,assento.id], name: {nomeInput}, cpf: {cpfInput}};
                         setSelecionado(selecao);
-                        assento.isAvailable = null;   
-                        console.log(selecao); 
+                        assento.isAvailable = null;
+                        const assentosSelec = [...assentosSelecionados,assento.name];
+                        setAssentosSelecionados(assentosSelec);
                     } else {
                         alert("Esse assento não está disponível");
                     }         
@@ -24,8 +25,9 @@ export default function Assento({listaAssentos, selecionado, setSelecionado, nom
                         const filterSelecao = selecao.ids.filter( valor => valor !==assento.id );
                         const novaSelecao = {ids: filterSelecao, name: {nomeInput}, cpf: {cpfInput}};
                         setSelecionado(novaSelecao);
+                        const filterAssentosSelecionados = assentosSelecionados.filter( valor => valor !== assento.name);
+                        setAssentosSelecionados(filterAssentosSelecionados);
                         assento.isAvailable = true;   
-                        console.log(novaSelecao); 
                     }     
                 }
             }

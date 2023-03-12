@@ -11,16 +11,17 @@ export default function App() {
 
     const [selecionado,setSelecionado] = useState({ids: [], name: "", cpf: ""});
     const [compra,setCompra] = useState({nomeFilme: "", diaFilme: "", horaFilme: ""});
+    const [assentosSelecionados,setAssentosSelecionados] = useState([]);
 
     return (
         <BrowserRouter>
            <Link to={"/"}><NavContainer>CINEFLEX</NavContainer></Link>
 
             <Routes>
-                <Route path="/" element={<HomePage selecionado={selecionado} setSelecionado={setSelecionado} />}/>
-                <Route path="/assentos/:idSessao" element={<SeatsPage selecionado={selecionado} setSelecionado={setSelecionado} compra={compra} setCompra={setCompra}/>}/>
+                <Route path="/" element={<HomePage selecionado={selecionado} setSelecionado={setSelecionado} setAssentosSelecionados={setAssentosSelecionados}/>}/>
+                <Route path="/assentos/:idSessao" element={<SeatsPage selecionado={selecionado} setSelecionado={setSelecionado} compra={compra} setCompra={setCompra} assentosSelecionados={assentosSelecionados} setAssentosSelecionados={setAssentosSelecionados}/>}/>
                 <Route path="/sessoes/:idFilme" element={<SessionsPage />}/>
-                <Route path="/sucesso" element={<SuccessPage selecionado={selecionado} compra={compra}/>}/>
+                <Route path="/sucesso" element={<SuccessPage selecionado={selecionado} compra={compra} assentosSelecionados={assentosSelecionados}/>}/>
             </Routes>
         </BrowserRouter>
     )

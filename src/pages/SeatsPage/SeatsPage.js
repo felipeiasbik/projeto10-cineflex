@@ -5,7 +5,7 @@ import axios from "axios";
 import Assento from "./Assento";
 import CORES from "./Cores";
 
-export default function SeatsPage( {selecionado, setSelecionado, compra, setCompra} ) {
+export default function SeatsPage( {selecionado, setSelecionado, setCompra, assentosSelecionados, setAssentosSelecionados} ) {
 
     const [listaAssentos,setListaAssentos] = useState(undefined);
     const {idSessao} = useParams();
@@ -24,7 +24,7 @@ export default function SeatsPage( {selecionado, setSelecionado, compra, setComp
             setListaAssentos(listagemAssentos);
         })
         promise.catch ( err => {
-            console.log(err.response.data);
+            alert(err.response.data);
     })
 
     }, [])
@@ -56,7 +56,7 @@ export default function SeatsPage( {selecionado, setSelecionado, compra, setComp
             Selecione o(s) assento(s)
 
             <SeatsContainer>
-                <Assento listaAssentos={listaAssentos} selecionado={selecionado} setSelecionado={setSelecionado} nomeInput={nomeInput} cpfInput={cpfInput}/>
+                <Assento listaAssentos={listaAssentos} selecionado={selecionado} setSelecionado={setSelecionado} nomeInput={nomeInput} cpfInput={cpfInput} assentosSelecionados={assentosSelecionados} setAssentosSelecionados={setAssentosSelecionados}/>
             </SeatsContainer>
 
             <CaptionContainer>

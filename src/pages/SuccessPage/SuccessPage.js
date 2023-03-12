@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 
-export default function SuccessPage( {selecionado, compra} ) {
+export default function SuccessPage( {selecionado, compra, assentosSelecionados} ) {
 
     useEffect(() => {
         console.log(selecionado);
@@ -20,7 +20,7 @@ export default function SuccessPage( {selecionado, compra} ) {
 
             <TextContainer>
                 <strong><p>Ingressos</p></strong>
-                {selecionado.ids.map( assento => <p key={assento}>Assento {assento}</p>)}
+                {selecionado.ids.map( (assento,indice) => <p key={assento}>Assento {assentosSelecionados[indice]}</p>)}
             </TextContainer>
 
             <TextContainer>
