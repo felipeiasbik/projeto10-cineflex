@@ -36,7 +36,7 @@ export default function SeatsPage( {selecionado, setSelecionado} ) {
             event.preventDefault();
             const selecao = {ids: [...selecionado.ids], name: {nomeInput}, cpf: {cpfInput}};
             setSelecionado(selecao);
-            console.log(selecao);
+            console.log(selecao);        
         }
     }
 
@@ -45,7 +45,7 @@ export default function SeatsPage( {selecionado, setSelecionado} ) {
             Selecione o(s) assento(s)
 
             <SeatsContainer>
-                <Assento listaAssentos={listaAssentos} selecionado={selecionado} setSelecionado={setSelecionado}/>
+                <Assento listaAssentos={listaAssentos} selecionado={selecionado} setSelecionado={setSelecionado} nomeInput={nomeInput} cpfInput={cpfInput}/>
             </SeatsContainer>
 
             <CaptionContainer>
@@ -65,10 +65,10 @@ export default function SeatsPage( {selecionado, setSelecionado} ) {
 
             <FormContainer>
                 <form onSubmit={enviarCompra}>
-                    <label for="campoNome">Nome do Comprador:</label>                
+                    <label htmlFor="campoNome">Nome do Comprador:</label>                
                     <input placeholder="Digite seu nome..." id="campoNome" type="text" value={nomeInput} onChange={e => setNomeInput(e.target.value)} required/>
 
-                    <label for="campoCPF">CPF do Comprador:</label>                
+                    <label htmlFor="campoCPF">CPF do Comprador:</label>                
                     <input placeholder="Digite seu CPF..." id="campoCPF" type="number" value={cpfInput} onChange={e => setCpfInput(e.target.value)} required/>
 
                     <button>Reservar Assento(s)</button>

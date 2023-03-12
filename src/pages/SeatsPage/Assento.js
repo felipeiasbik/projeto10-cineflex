@@ -2,17 +2,31 @@ import styled from "styled-components";
 import CORES from "./Cores";
 import { useEffect, useState } from "react";
 
-export default function Assento({listaAssentos,setListaAssentos, selecionado, setSelecionado}){
+export default function Assento({listaAssentos, selecionado, setSelecionado, nomeInput, cpfInput}){
 
 
     return (
         listaAssentos.seats.map( assento => {
 
             function selecionar(){
-                if (assento.isAvailable && !selecionado.ids.includes(assento.id)){
-                    const selecao = {ids: [...selecionado.ids,assento.id], name: "Fulano", cpf: "12345678900"};
-                    setSelecionado(selecao);
-                    assento.isAvailable = null;            
+                if (!selecionado.ids.includes(assento.id)){
+                    if (assento.isAvailable === true){
+                        const selecao = {ids: [...selecionado.ids,assento.id], name: {nomeInput}, cpf: {cpfInput}};
+                        setSelecionado(selecao);
+                        assento.isAvailable = null;   
+                        console.log(selecao); 
+                    } else {
+                        alert("Esse assento não está disponível");
+                    }         
+                } else if (selecionado.ids.includes(assento.id)) {
+                    if (assento.isAvailable === null){
+                        const selecao = {ids: [...selecionado.ids,assento.id], name: {nomeInput}, cpf: {cpfInput}};
+                        const filterSelecao = selecao.ids.filter( valor => valor !==assento.id );
+                        const novaSelecao = {ids: filterSelecao, name: {nomeInput}, cpf: {cpfInput}};
+                        setSelecionado(novaSelecao);
+                        assento.isAvailable = true;   
+                        console.log(novaSelecao); 
+                    }     
                 }
             }
 
