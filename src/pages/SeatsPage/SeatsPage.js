@@ -3,30 +3,29 @@ import { useParams } from "react-router-dom"
 import styled from "styled-components"
 import axios from "axios";
 import Assento from "./Assento";
+import CORES from "./Cores";
 
 export default function SeatsPage() {
 
-    const [filme,setFilme] = useState(undefined);
+    const [listaAssentos,setListaAssentos] = useState(undefined);
     const {idSessao} = useParams();
-    const [cor,setCor] = useState(true);
 
     useEffect(() => {
         const url = `https://mock-api.driven.com.br/api/v8/cineflex/showtimes/${idSessao}/seats`;
 
         const promise = axios.get(url);
         promise.then( res => {
-            console.log(res.data);
-            setFilme(res.data);
+            const listagemAssentos = res.data;
+            setListaAssentos(listagemAssentos);
+            console.log(listagemAssentos);
         })
         promise.catch ( err => {
             console.log(err.response.data);
-
     })
-
 
     }, [])
 
-    if (filme === undefined){
+    if (listaAssentos === undefined){
         return <Carregando>CARREGANDO...</Carregando>;
     }
 
@@ -35,20 +34,20 @@ export default function SeatsPage() {
             Selecione o(s) assento(s)
 
             <SeatsContainer>
-                <Assento filme={filme}/>
+                <Assento listaAssentos={listaAssentos}/>
             </SeatsContainer>
 
             <CaptionContainer>
                 <CaptionItem>
-                    <CaptionCircle cor={null}/>
+                    <CaptionCircle CORES={CORES} cor={CORES[0].nome}/>
                     Selecionado
                 </CaptionItem>
                 <CaptionItem>
-                    <CaptionCircle cor={true}/>
+                    <CaptionCircle CORES={CORES} cor={CORES[1].nome}/>
                     Disponível
                 </CaptionItem>
                 <CaptionItem>
-                    <CaptionCircle cor={false}/>
+                    <CaptionCircle CORES={CORES} cor={CORES[2].nome}/>
                     Indisponível
                 </CaptionItem>
             </CaptionContainer>
@@ -65,11 +64,11 @@ export default function SeatsPage() {
 
             <FooterContainer>
                 <div>
-                    <img src={filme.movie.posterURL} alt="poster" />
+                    <img src={listaAssentos.movie.posterURL} alt="poster" />
                 </div>
                 <div>
-                    <p>{filme.movie.title}</p>
-                    <p>{filme.day.weekday} - {filme.name} </p>
+                    <p>{listaAssentos.movie.title}</p>
+                    <p>{listaAssentos.day.weekday} - {listaAssentos.name} </p>
                 </div>
             </FooterContainer>
 
@@ -120,8 +119,24 @@ const CaptionContainer = styled.div`
     margin: 20px;
 `
 const CaptionCircle = styled.div`
-    border: 1px solid ${props => props.cor === null ? "#0E7D71" : props.cor === false ? "#F7C52B" : "#808F9D"};
-    background-color: ${props => props.cor === null ? "#1AAE9E" : props.cor === false ? "#FBE192" : "#C3CFD9"};
+border: 1px solid ${props => {
+    if (props.cor === "Disponível"){
+        return props.CORES[1].borda;
+    } else if (props.cor === "Indisponível"){
+        return props.CORES[2].borda;
+    } else {
+        return props.CORES[0].borda;
+    }
+}};
+background-color: ${props => {
+    if (props.cor === "Disponível"){
+        return props.CORES[1].cor;
+    } else if (props.cor === "Indisponível"){
+        return props.CORES[2].cor;
+    } else {
+        return props.CORES[0].cor;
+    }
+}};
     height: 25px;
     width: 25px;
     border-radius: 25px;
