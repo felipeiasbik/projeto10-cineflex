@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import styled from "styled-components"
 import axios from "axios";
 import Assento from "./Assento";
@@ -10,7 +10,8 @@ export default function SeatsPage( {selecionado, setSelecionado} ) {
     const [listaAssentos,setListaAssentos] = useState(undefined);
     const {idSessao} = useParams();
     const [nomeInput,setNomeInput] = useState("");
-    const [cpfInput,setCpfInput] = useState(0);
+    const [cpfInput,setCpfInput] = useState("");
+    const navigate = useNavigate();
 
     useEffect(() => {
         const url = `https://mock-api.driven.com.br/api/v8/cineflex/showtimes/${idSessao}/seats`;
@@ -33,10 +34,15 @@ export default function SeatsPage( {selecionado, setSelecionado} ) {
     function enviarCompra(event){
         event.preventDefault();
         if (selecionado.ids.length !== 0){
-            event.preventDefault();
-            const selecao = {ids: [...selecionado.ids], name: {nomeInput}, cpf: {cpfInput}};
-            setSelecionado(selecao);
-            console.log(selecao);        
+            const body = {ids: [...selecionado.ids], name: {nomeInput}, cpf: {cpfInput}};
+            setSelecionado(body);
+            console.log(body);    
+            
+            const URL = "https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many";
+            const promise = axios.post(URL, body);
+
+            promise.then(res => {navigate("/sucesso")});
+            promise.catch(err => {alert(`Erro: ${err.response.data}`)});
         }
     }
 
@@ -71,7 +77,7 @@ export default function SeatsPage( {selecionado, setSelecionado} ) {
                     <label htmlFor="campoCPF">CPF do Comprador:</label>                
                     <input placeholder="Digite seu CPF..." id="campoCPF" type="number" value={cpfInput} onChange={e => setCpfInput(e.target.value)} required/>
 
-                    <button>Reservar Assento(s)</button>
+                    <button >Reservar Assento(s)</button>
                 </form>
             </FormContainer>
 
