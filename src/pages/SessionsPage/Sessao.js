@@ -8,7 +8,7 @@ export default function Sessao({filme}){
             return (
                 <SessionContainer data-test="movie-day" key={hor.id}>
                     {hor.weekday} - {hor.date}
-                    <ButtonsContainer data-test="showtime">
+                    <ButtonsContainer>
                         <Horario hor={hor}/>
                     </ButtonsContainer>
                 </SessionContainer>
