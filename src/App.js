@@ -13,15 +13,18 @@ export default function App() {
     const [compra,setCompra] = useState({nomeFilme: "", diaFilme: "", horaFilme: ""});
     const [assentosSelecionados,setAssentosSelecionados] = useState([]);
 
+    const [botaoVoltar,setBotaoVoltar] = useState("");
+
     return (
         <BrowserRouter>
-           <Link to={"/"}><NavContainer>CINEFLEX</NavContainer></Link>
+                <Voltar botaoVoltar={botaoVoltar}><Link to={botaoVoltar} data-test="go-home-header-btn"><ion-icon name="arrow-back-outline"></ion-icon></Link></Voltar>
+                <NavContainer>CINEFLEX</NavContainer>
 
             <Routes>
-                <Route path="/" element={<HomePage selecionado={selecionado} setSelecionado={setSelecionado} setAssentosSelecionados={setAssentosSelecionados}/>}/>
-                <Route path="/assentos/:idSessao" element={<SeatsPage selecionado={selecionado} setSelecionado={setSelecionado} compra={compra} setCompra={setCompra} assentosSelecionados={assentosSelecionados} setAssentosSelecionados={setAssentosSelecionados}/>}/>
-                <Route path="/sessoes/:idFilme" element={<SessionsPage />}/>
-                <Route path="/sucesso" element={<SuccessPage selecionado={selecionado} compra={compra} assentosSelecionados={assentosSelecionados}/>}/>
+                <Route path="/" element={<HomePage selecionado={selecionado} setSelecionado={setSelecionado} setAssentosSelecionados={setAssentosSelecionados} setBotaoVoltar={setBotaoVoltar}/>}/>
+                <Route path="/assentos/:idSessao" element={<SeatsPage selecionado={selecionado} setSelecionado={setSelecionado} compra={compra} setCompra={setCompra} assentosSelecionados={assentosSelecionados} setAssentosSelecionados={setAssentosSelecionados} setBotaoVoltar={setBotaoVoltar} />}/>
+                <Route path="/sessoes/:idFilme" element={<SessionsPage setBotaoVoltar={setBotaoVoltar}/>}/>
+                <Route path="/sucesso" element={<SuccessPage selecionado={selecionado} compra={compra} assentosSelecionados={assentosSelecionados} setBotaoVoltar={setBotaoVoltar}/>}/>
             </Routes>
         </BrowserRouter>
     )
@@ -33,14 +36,31 @@ const NavContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #C3CFD9;
     color: #E8833A;
     font-family: 'Roboto', sans-serif;
     font-size: 34px;
+    background-color: #C3CFD9;
     position: fixed;
+    left: 0;
     top: 0;
     a {
         text-decoration: none;
         color: #E8833A;
+    }
+`
+
+const Voltar = styled.div`
+    display: ${props => props.botaoVoltar === "" ? "none" : "flex"};
+    justify-content: flex-end;
+    align-items: center;
+    width: 45px;
+    height: 70px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    ion-icon{
+        font-size: 30px;
+        color: #000000;
     }
 `

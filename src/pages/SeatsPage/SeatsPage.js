@@ -5,7 +5,7 @@ import axios from "axios";
 import Assento from "./Assento";
 import CORES from "./Cores";
 
-export default function SeatsPage( {selecionado, setSelecionado, setCompra, assentosSelecionados, setAssentosSelecionados} ) {
+export default function SeatsPage( {selecionado, setSelecionado, setCompra, assentosSelecionados, setAssentosSelecionados, setBotaoVoltar} ) {
 
     const [listaAssentos,setListaAssentos] = useState(undefined);
     const {idSessao} = useParams();
@@ -13,7 +13,9 @@ export default function SeatsPage( {selecionado, setSelecionado, setCompra, asse
     const [cpfInput,setCpfInput] = useState("");
     const navigate = useNavigate();
 
-    useEffect(() => {   
+    useEffect(() => {
+        setBotaoVoltar(-1);
+
         const url = `https://mock-api.driven.com.br/api/v8/cineflex/showtimes/${idSessao}/seats`;
 
         const promise = axios.get(url);

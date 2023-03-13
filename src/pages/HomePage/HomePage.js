@@ -2,9 +2,10 @@ import styled from "styled-components";
 import Cartaz from "./Cartaz";
 import { useEffect } from "react";
 
-export default function HomePage( {setSelecionado, setAssentosSelecionados} ) {
+export default function HomePage( {setSelecionado, setAssentosSelecionados, setBotaoVoltar} ) {
 
     useEffect(() => {
+        setBotaoVoltar("");
         const zerarIds = {ids: [], name: "", cpf: ""};
         setSelecionado(zerarIds);
         setAssentosSelecionados([]);

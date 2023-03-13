@@ -4,12 +4,14 @@ import styled from "styled-components";
 import axios from "axios";
 import Sessao from "./Sessao";
 
-export default function SessionsPage() {
+export default function SessionsPage( {setBotaoVoltar} ) {
 
     const [filme, setFilme] = useState(undefined);
     const {idFilme} = useParams();
 
     useEffect(() => {
+        setBotaoVoltar(-1);
+
         const url = `https://mock-api.driven.com.br/api/v8/cineflex/movies/${idFilme}/showtimes`;
 
         const promise = axios.get(url);
